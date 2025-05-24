@@ -9,10 +9,15 @@ spring:
     activate:
       on-profile: test
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/coupon?characterEncoding=UTF-8
-    username: ENC(SCRWnCHA170nLyluaGYo+g==)
-    password: ENC(8qq2AINT1iP/NtLOQzlrhw==)
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      schema-locations: file:./sql/schema.sql # DDL script location
+      # data-locations: file:./sql/schema.sql # DML script location
+      mode: always
 
   jpa:
     hibernate:

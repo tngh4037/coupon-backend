@@ -9,7 +9,6 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder(access = AccessLevel.PRIVATE)
 public class Member extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,16 +16,19 @@ public class Member extends BaseEntity {
     private Long id;
 
     private String memberId;
-    private String memberName;
+
+    @Column(name = "member_name")
+    private String name;
 
     @Enumerated(EnumType.STRING)
-    private MemberStatus memberStatus;
+    @Column(name = "member_status")
+    private MemberStatus status;
 
-    public static Member join(String memberId, String memberName) {
-        return Member.builder()
-                .memberId(memberId)
-                .memberName(memberName)
-                .memberStatus(MemberStatus.NORMAL)
-                .build();
+    public static Member join(String memberId, String name) {
+        Member member = new Member();
+        member.memberId = memberId;
+        member.name = name;
+        member.status = MemberStatus.NORMAL;
+        return member;
     }
 }

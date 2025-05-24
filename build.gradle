@@ -54,9 +54,12 @@ dependencies {
 	// 설정 파일(application.yml) 프로퍼티 암호화
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
 
-	// test - lombok
+	// [ test ]
+	// lombok
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+	// h2 database
+	testImplementation 'com.h2database:h2'
 }
 
 // Q클래스 생성 디렉토리 지정 (build/generated/querydsl)
