@@ -40,10 +40,10 @@ public class Bill extends BaseEntity {
 
     private int totalAmount;
 
-    @OneToOne(mappedBy = "bill", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "bill", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Delivery delivery;
 
-    @OneToMany(mappedBy = "bill", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
     public static Bill create(Member member, BillType billType, Delivery delivery, Order... orders) {
@@ -75,11 +75,9 @@ public class Bill extends BaseEntity {
     }
 
     public int calculateTotalAmount() {
-        int totalPrice = 0;
-        for (Order order : orders) {
-            totalPrice += order.getOrderPrice();
-        }
-        return totalPrice;
+        return orders.stream()
+                .mapToInt(Order::getOrderPrice)
+                .sum();
     }
 
 }

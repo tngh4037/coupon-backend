@@ -1,4 +1,4 @@
-package com.example.coupon_backend.global.dto;
+package com.example.coupon_backend.global.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

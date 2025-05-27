@@ -1,6 +1,7 @@
 package com.example.coupon_backend.domain.goods.entity;
 
 import com.example.coupon_backend.domain.brand.entity.Brand;
+import com.example.coupon_backend.domain.goods.enums.GoodsType;
 import com.example.coupon_backend.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,16 +22,22 @@ public class Goods extends BaseEntity {
     private Brand brand;
 
     private String goodsName;
+
+    @Enumerated(EnumType.STRING)
+    private GoodsType goodsType;
+
     private int goodsPrice;
     private int salePrice;
     private String displayYn;
 
-    public static Goods create(String goodsName, int goodsPrice, int salePrice, Brand brand) {
+    public static Goods create(String goodsName, GoodsType goodsType, int goodsPrice, int salePrice, Brand brand) {
         Assert.notNull(brand, "brand cannot be null.");
         Assert.hasText(goodsName, "goodsName cannot be empty.");
+        Assert.notNull(goodsType, "goodsType cannot be null.");
 
         Goods goods = new Goods();
         goods.goodsName = goodsName;
+        goods.goodsType = goodsType;
         goods.goodsPrice = goodsPrice;
         goods.salePrice = salePrice;
         goods.displayYn = "Y";

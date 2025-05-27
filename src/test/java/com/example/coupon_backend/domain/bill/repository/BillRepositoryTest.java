@@ -1,18 +1,21 @@
 package com.example.coupon_backend.domain.bill.repository;
 
 import com.example.coupon_backend.domain.bill.entity.Bill;
+import com.example.coupon_backend.domain.bill.enums.BillStatus;
 import com.example.coupon_backend.domain.bill.enums.BillType;
 import com.example.coupon_backend.domain.brand.entity.Brand;
 import com.example.coupon_backend.domain.brand.repository.BrandRepository;
 import com.example.coupon_backend.domain.delivery.entity.Address;
 import com.example.coupon_backend.domain.delivery.entity.Delivery;
 import com.example.coupon_backend.domain.goods.entity.Goods;
+import com.example.coupon_backend.domain.goods.enums.GoodsType;
 import com.example.coupon_backend.domain.goods.repository.GoodsRepository;
 import com.example.coupon_backend.domain.member.entity.Member;
 import com.example.coupon_backend.domain.member.repository.MemberRepository;
 import com.example.coupon_backend.domain.order.entity.Order;
 import com.example.coupon_backend.domain.order.repository.OrderRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,6 +43,7 @@ class BillRepositoryTest {
     @Autowired
     OrderRepository orderRepository;
 
+    @DisplayName("상품을 결제하는 경우 주문 테이블에 주문 정보가 등록된다.")
     @Test
     public void test_buy() throws Exception {
         // given
@@ -64,6 +68,7 @@ class BillRepositoryTest {
         Assertions.assertThat(orders).containsExactly(order1, order2);
     }
 
+    @DisplayName("충전 결제의 경우 주문 테이블에 등록되지 않는다.")
     @Test
     public void test_charge() throws Exception {
         // given
@@ -89,7 +94,7 @@ class BillRepositoryTest {
     }
 
     private Goods createGoods(Brand brand, String goodsName, int goodsPrice, int salePrice) {
-        Goods americano = Goods.create(goodsName, goodsPrice, salePrice, brand);
+        Goods americano = Goods.create(goodsName, GoodsType.B2B, goodsPrice, salePrice, brand);
         goodsRepository.save(americano);
         return americano;
     }

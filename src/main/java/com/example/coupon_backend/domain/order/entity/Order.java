@@ -42,7 +42,6 @@ public class Order extends BaseEntity {
 
     public void associateWith(Bill bill) {
         this.bill = bill;
-        bill.getOrders().add(this);
     }
 
     public int getOrderPrice() {

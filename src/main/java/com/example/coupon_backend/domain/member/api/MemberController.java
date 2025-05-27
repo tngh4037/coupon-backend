@@ -4,7 +4,7 @@ import com.example.coupon_backend.domain.member.api.request.MemberCreateRequest;
 import com.example.coupon_backend.domain.member.api.request.MemberSearchRequest;
 import com.example.coupon_backend.domain.member.service.MemberService;
 import com.example.coupon_backend.domain.member.service.response.MemberResponse;
-import com.example.coupon_backend.global.dto.Result;
+import com.example.coupon_backend.global.response.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -45,7 +45,7 @@ public class MemberController {
     /**
      * 회원 등록
      */
-    @PostMapping("/api/members")
+    @PostMapping("/api/members/new")
     public Result<Long> create(
             @RequestBody @Valid MemberCreateRequest memberCreateRequest
     ) {

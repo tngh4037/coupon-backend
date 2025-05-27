@@ -3,6 +3,7 @@ package com.example.coupon_backend.domain.brand.repository;
 import com.example.coupon_backend.domain.brand.entity.Brand;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +21,7 @@ class BrandRepositoryTest {
     @PersistenceContext
     EntityManager em;
 
+    @DisplayName("브랜드 정보를 등록할 수 있다.")
     @Test
     public void save() throws Exception {
         // given
@@ -35,6 +37,7 @@ class BrandRepositoryTest {
         assertThat(findBrand.getDisplayYn()).isEqualTo("Y");
     }
 
+    @DisplayName("브랜드의 노출 여부를 수정할 수 있다.")
     @Test
     public void modifyDisplayYn() throws Exception {
         // given
