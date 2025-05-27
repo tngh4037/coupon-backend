@@ -52,12 +52,13 @@ class BillRepositoryTest {
         Goods americano = createGoods(brand, "아메리카노", 4500, 4000);
         Goods latte = createGoods(brand, "카페라떼", 5000, 4500);
 
-        // when
         Order order1 = Order.create(americano, americano.getGoodsPrice(), 3);
         Order order2 = Order.create(latte, latte.getGoodsPrice(), 2);
         Delivery delivery = Delivery.create(Address.create("city", "street", "zipCode"));
 
         Bill bill = Bill.create(member, BillType.BUY, delivery, order1, order2);
+
+        // when
         Bill savedBill = billRepository.save(bill);
 
         // then
@@ -77,12 +78,13 @@ class BillRepositoryTest {
         Goods americano = createGoods(brand, "아메리카노", 4500, 4000);
         Goods latte = createGoods(brand, "카페라떼", 5000, 4500);
 
-        // when
         Order order1 = Order.create(americano, americano.getGoodsPrice(), 3);
         Order order2 = Order.create(latte, latte.getGoodsPrice(), 2);
         Delivery delivery = Delivery.create(Address.create("city", "street", "zipCode"));
 
         Bill bill = Bill.create(member, BillType.CHARGE, delivery, order1, order2);
+
+        // when
         Bill savedBill = billRepository.save(bill);
 
         // then

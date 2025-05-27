@@ -11,8 +11,9 @@ import java.util.List;
 
 @Entity
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(access = AccessLevel.PRIVATE)
 public class Brand extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,16 +23,17 @@ public class Brand extends BaseEntity {
     private String brandName;
     private String displayYn;
 
+    @Builder.Default
     @OneToMany(mappedBy = "brand")
     private List<Goods> goodsList = new ArrayList<>();
 
     public static Brand create(String brandName) {
         Assert.hasText(brandName, "brandName cannot be empty.");
 
-        Brand brand = new Brand();
-        brand.brandName = brandName;
-        brand.displayYn = "Y";
-        return brand;
+        return Brand.builder()
+                .brandName(brandName)
+                .displayYn("Y")
+                .build();
     }
 
     public void changeDisplayYn(String displayYn) {

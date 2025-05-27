@@ -37,6 +37,7 @@ public class GlobalExceptionHandler {
         List<ErrorResponse.FieldError> fieldErrors = getFieldErrors(e.getBindingResult());
         ErrorResponse response = ErrorResponse.of(CommonErrorCode.INVALID_INPUT_VALUE, fieldErrors);
 
+        // 참고) ResponseEntity 반환: 내부에서 sendError(400)를 호출하지 X, HttpServletResponse.setStatus(400) 만 적용 -> WAS의 에러 처리 로직을 우회하고 직접 응답 구성
         return new ResponseEntity<>(response, CommonErrorCode.INVALID_INPUT_VALUE.getHttpStatus());
     }
 

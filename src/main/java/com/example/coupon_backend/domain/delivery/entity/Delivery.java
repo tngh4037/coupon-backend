@@ -11,8 +11,9 @@ import org.springframework.util.Assert;
 
 @Entity
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(access = AccessLevel.PRIVATE)
 public class Delivery extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +34,10 @@ public class Delivery extends BaseEntity {
     public static Delivery create(Address address) {
         Assert.notNull(address, "address cannot be null.");
 
-        Delivery delivery = new Delivery();
-        delivery.status = DeliveryStatus.WAIT;
-        delivery.address = address;
-        return delivery;
+        return Delivery.builder()
+                .status(DeliveryStatus.WAIT)
+                .address(address)
+                .build();
     }
 
     public void associateWith(Bill bill) {

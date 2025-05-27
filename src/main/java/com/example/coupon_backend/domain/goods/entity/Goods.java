@@ -9,8 +9,9 @@ import org.springframework.util.Assert;
 
 @Entity
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(access = AccessLevel.PRIVATE)
 public class Goods extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +36,16 @@ public class Goods extends BaseEntity {
         Assert.hasText(goodsName, "goodsName cannot be empty.");
         Assert.notNull(goodsType, "goodsType cannot be null.");
 
-        Goods goods = new Goods();
-        goods.goodsName = goodsName;
-        goods.goodsType = goodsType;
-        goods.goodsPrice = goodsPrice;
-        goods.salePrice = salePrice;
-        goods.displayYn = "Y";
+        Goods goods = Goods.builder()
+                .goodsName(goodsName)
+                .goodsType(goodsType)
+                .goodsPrice(goodsPrice)
+                .salePrice(salePrice)
+                .displayYn("Y")
+                .build();
+
         goods.associateWith(brand);
+
         return goods;
     }
 

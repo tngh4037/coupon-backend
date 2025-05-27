@@ -10,8 +10,9 @@ import org.springframework.util.Assert;
 @Entity
 @Table(name = "orders")
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(access = AccessLevel.PRIVATE)
 public class Order extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,11 +34,11 @@ public class Order extends BaseEntity {
     public static Order create(Goods goods, int goodsPrice, int orderCnt) {
         Assert.notNull(goods, "goods cannot be null.");
 
-        Order order = new Order();
-        order.goods = goods;
-        order.goodsPrice = goodsPrice;
-        order.orderCnt = orderCnt;
-        return order;
+        return Order.builder()
+                .goods(goods)
+                .goodsPrice(goodsPrice)
+                .orderCnt(orderCnt)
+                .build();
     }
 
     public void associateWith(Bill bill) {

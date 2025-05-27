@@ -9,5 +9,4 @@ import lombok.Setter;
 public class MemberSearchRequest {
     private String name;
     private MemberStatus status;
-    private int test;
 }

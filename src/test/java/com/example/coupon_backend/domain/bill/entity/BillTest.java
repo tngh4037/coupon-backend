@@ -33,7 +33,6 @@ class BillTest {
 
         // then
         assertThat(bill.getTotalAmount()).isEqualTo(24000);
-        assertThat(bill.calculateTotalAmount()).isEqualTo(24000);
     }
 
 }

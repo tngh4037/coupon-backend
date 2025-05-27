@@ -4,7 +4,7 @@ import com.example.coupon_backend.domain.member.api.request.MemberCreateRequest;
 import com.example.coupon_backend.domain.member.api.request.MemberSearchRequest;
 import com.example.coupon_backend.domain.member.service.MemberService;
 import com.example.coupon_backend.domain.member.service.response.MemberResponse;
-import com.example.coupon_backend.global.response.Result;
+import com.example.coupon_backend.global.api.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,32 +24,32 @@ public class MemberController {
      * - /api/members?page=0&size=5&name=kim&status=NORMAL
      */
     @GetMapping("/api/members")
-    public Result<Page<MemberResponse>> getMembers(
+    public ApiResponse<Page<MemberResponse>> getMembers(
             Pageable pageable,
             @ModelAttribute MemberSearchRequest request
     ) {
         Page<MemberResponse> members = memberService.getMembers(pageable, request.getName(), request.getStatus());
-        return Result.of(members);
+        return ApiResponse.ok(members);
     }
 
     /**
      * 회원 상세 조회
      */
     @GetMapping("/api/members/{id}")
-    public Result<MemberResponse> getMember(
+    public ApiResponse<MemberResponse> getMember(
             @PathVariable("id") final Long id
     ) {
-        return Result.of(memberService.getMember(id));
+        return ApiResponse.ok(memberService.getMember(id));
     }
 
     /**
      * 회원 등록
      */
     @PostMapping("/api/members/new")
-    public Result<Long> create(
+    public ApiResponse<Long> createMember(
             @RequestBody @Valid MemberCreateRequest memberCreateRequest
     ) {
-        return Result.of(memberService.save(memberCreateRequest.toServiceRequest()));
+        return ApiResponse.ok(memberService.save(memberCreateRequest.toServiceRequest()));
     }
 
 }
