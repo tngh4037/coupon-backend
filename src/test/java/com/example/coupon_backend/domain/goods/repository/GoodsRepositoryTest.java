@@ -1,5 +1,6 @@
 package com.example.coupon_backend.domain.goods.repository;
 
+import com.example.coupon_backend.IntegrationTestSupport;
 import com.example.coupon_backend.domain.brand.entity.Brand;
 import com.example.coupon_backend.domain.brand.repository.BrandRepository;
 import com.example.coupon_backend.domain.goods.entity.Goods;
@@ -11,9 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-@SpringBootTest
+import static org.assertj.core.api.Assertions.assertThat;
+
 @Transactional
-class GoodsRepositoryTest {
+class GoodsRepositoryTest extends IntegrationTestSupport {
 
     @Autowired
     GoodsRepository goodsRepository;
@@ -25,20 +27,26 @@ class GoodsRepositoryTest {
     @Test
     public void save() throws Exception {
         // given
-        Brand brand = Brand.create("스타벅스");
-        brandRepository.save(brand);
+        Brand brand = createBrand();
         Goods goods = Goods.create("아메리카노", GoodsType.B2B, 4500, 4000, brand);
 
         // when
         Goods savedGoods = goodsRepository.save(goods);
 
         // then
-        Assertions.assertThat(savedGoods).isEqualTo(goods);
-        Assertions.assertThat(savedGoods.getGoodsName()).isEqualTo("아메리카노");
-        Assertions.assertThat(savedGoods.getGoodsPrice()).isEqualTo(4500);
-        Assertions.assertThat(savedGoods.getSalePrice()).isEqualTo(4000);
-        Assertions.assertThat(savedGoods.getBrand()).isEqualTo(brand);
-        Assertions.assertThat(brand.getGoodsList().size()).isEqualTo(1);
+        assertThat(savedGoods).isEqualTo(goods);
+        assertThat(savedGoods.getGoodsName()).isEqualTo("아메리카노");
+        assertThat(savedGoods.getGoodsType()).isEqualTo(GoodsType.B2B);
+        assertThat(savedGoods.getGoodsPrice()).isEqualTo(4500);
+        assertThat(savedGoods.getSalePrice()).isEqualTo(4000);
+        assertThat(savedGoods.getBrand()).isEqualTo(brand);
+        assertThat(brand.getGoodsList()).hasSize(1);
+    }
+
+    private Brand createBrand() {
+        Brand brand = Brand.create("스타벅스");
+        brandRepository.save(brand);
+        return brand;
     }
 
 }

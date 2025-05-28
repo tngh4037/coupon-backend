@@ -1,5 +1,6 @@
 package com.example.coupon_backend.domain.brand.repository;
 
+import com.example.coupon_backend.IntegrationTestSupport;
 import com.example.coupon_backend.domain.brand.entity.Brand;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -11,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
 @Transactional
-class BrandRepositoryTest {
+class BrandRepositoryTest extends IntegrationTestSupport {
 
     @Autowired
     BrandRepository brandRepository;

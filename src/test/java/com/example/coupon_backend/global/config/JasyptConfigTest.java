@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @Slf4j
-@SpringBootTest
 class JasyptConfigTest {
 
     private StandardPBEStringEncryptor pbeEnc;

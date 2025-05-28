@@ -58,6 +58,9 @@ dependencies {
 	// 설정 파일(application.yml) 프로퍼티 암호화
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
 
+	// java 편의 라이브러리 - guava
+	implementation 'com.google.guava:guava:33.4.8-jre'
+
 	// test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

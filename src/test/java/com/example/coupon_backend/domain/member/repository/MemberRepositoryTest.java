@@ -1,5 +1,6 @@
 package com.example.coupon_backend.domain.member.repository;
 
+import com.example.coupon_backend.IntegrationTestSupport;
 import com.example.coupon_backend.domain.member.entity.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,9 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
 @Transactional
-class MemberRepositoryTest {
+class MemberRepositoryTest extends IntegrationTestSupport {
 
     @Autowired
     MemberRepository memberRepository;

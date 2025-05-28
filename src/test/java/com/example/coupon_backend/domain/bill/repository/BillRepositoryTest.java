@@ -1,5 +1,6 @@
 package com.example.coupon_backend.domain.bill.repository;
 
+import com.example.coupon_backend.IntegrationTestSupport;
 import com.example.coupon_backend.domain.bill.entity.Bill;
 import com.example.coupon_backend.domain.bill.enums.BillStatus;
 import com.example.coupon_backend.domain.bill.enums.BillType;
@@ -24,9 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@SpringBootTest
 @Transactional
-class BillRepositoryTest {
+class BillRepositoryTest extends IntegrationTestSupport {
 
     @Autowired
     MemberRepository memberRepository;
