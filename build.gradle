@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.0'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
 group = 'com.example'
@@ -18,15 +19,11 @@ jar {
 	enabled = false
 }
 
-// jar 파일명 변경
-bootJar {
-	archiveFileName = "${rootProject.name}.jar"
-}
-
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	asciidoctorExt
 }
 
 repositories {
@@ -69,8 +66,13 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	// test - h2 database
 	testImplementation 'com.h2database:h2'
+
+	// SpringRestDocs
+	asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 
+// =============== Querydsl ===============
 // Q클래스 생성 디렉토리 지정 (build/generated/querydsl)
 def generated = layout.buildDirectory.dir("generated/querydsl")
 
@@ -89,6 +91,38 @@ clean {
 	delete generated.get().asFile
 }
 
+// =============== SpringRestDocs ===============
+ext { // 전역 변수 선언 (참고. snippet: 문서 조각)
+	snippetsDir = file('build/generated-snippets') // snippet에 대한 디렉토리 정의 ( 테스트 성공 후, 생성된 스니펫 저장 경로 )
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
+	outputs.dir snippetsDir // REST Docs 테스트 결과물을 지정한 snippetsDir 경로에 저장
+}
+
+asciidoctor {
+	inputs.dir snippetsDir // REST Docs 에서 생성한 스니펫(build/generated-snippets)을 입력으로 사용하여,
+	configurations 'asciidoctorExt'
+
+	sources { // 특정 파일만 html로 만든다. 이게 없으면 adoc 파일마다 html 파일이 생성된다. ( index.adoc 파일만 문서화 대상에 포함 )
+		include("**/index.adoc")
+	}
+	baseDirFollowsSourceFile() // adoc 파일 내부에서 include:: 경로를 사용할 때, 해당 adoc 파일의 위치(src/docs/asciidoc)를 기준(baseDir)으로 삼는다. ( 다른 adoc 파일을 include 할 때 경로를 baseDir로 맞춘다. )
+	dependsOn test // dependsOn test : asciidoctor task 작업 순서를 test task 가 수행된 다음에 수행하도록 하겠다.
+}
+
+// tasks.register('createDocument', Copy) {
+// 	dependsOn asciidoctor
+// 	from file("build/docs/asciidoc") // 문서가 생성된 경로
+// 	into file("src/main/resources/static") // 문서를 복사할 경로
+// }
+
+bootJar {
+	archiveFileName = "${rootProject.name}.jar" // jar 파일명 변경
+
+	dependsOn asciidoctor
+	from("${asciidoctor.outputDir}") { // 참고) asciidoctor.outputDir 는 기본적으로 build/docs/asciidoc 이다.
+		into 'static/docs' // TODO:: 경로 체크 ( 클래스패스 경로가 아닌 최상위 경로에 생성) (참고. https://www.inflearn.com/community/questions/946832/%EC%84%B9%EC%85%988-spring-rest-docs  ,  https://dkswhdgur246.tistory.com/73#%EB%AC%B8%EC%A0%9C-3.-spring-rest-docs-%EC%9D%B4%EC%8A%88 )
+	}
 }

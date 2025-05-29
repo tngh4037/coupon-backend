@@ -1,0 +1,10 @@
+[[member-new]]
+=== 회원 등록
+
+==== HTTP Request
+include::{snippets}/member-new/http-request.adoc[]
+include::{snippets}/member-new/request-fields.adoc[]
+
+==== HTTP Response
+include::{snippets}/member-new/http-response.adoc[]
+include::{snippets}/member-new/response-fields.adoc[]
