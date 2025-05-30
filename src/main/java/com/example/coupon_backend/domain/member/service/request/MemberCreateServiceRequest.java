@@ -8,12 +8,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberCreateServiceRequest {
 
-    private String id;
+    private String memberId;
+    private String password;
     private String name;
+    private String email;
 
     @Builder
-    public MemberCreateServiceRequest(String id, String name) {
-        this.id = id;
+    public MemberCreateServiceRequest(String memberId, String password, String email, String name) {
+        this.memberId = memberId;
+        this.password = password;
+        this.email = email;
         this.name = name;
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-
+@RequestMapping("/api/members")
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
@@ -23,7 +23,7 @@ public class MemberController {
      *
      * - /api/members?page=0&size=5&name=kim&status=NORMAL
      */
-    @GetMapping("/api/members")
+    @GetMapping
     public ApiResponse<Page<MemberResponse>> getMembers(
             Pageable pageable,
             @ModelAttribute MemberSearchRequest request
@@ -35,7 +35,7 @@ public class MemberController {
     /**
      * 회원 상세 조회
      */
-    @GetMapping("/api/members/{id}")
+    @GetMapping("/{id}")
     public ApiResponse<MemberResponse> getMember(
             @PathVariable("id") final Long id
     ) {
@@ -45,11 +45,12 @@ public class MemberController {
     /**
      * 회원 등록
      */
-    @PostMapping("/api/members/new")
-    public ApiResponse<Long> createMember(
+    @PostMapping("/new")
+    public ApiResponse<MemberResponse> createMember(
             @RequestBody @Valid MemberCreateRequest memberCreateRequest
     ) {
-        return ApiResponse.ok(memberService.save(memberCreateRequest.toServiceRequest()));
+        Long savedId = memberService.save(memberCreateRequest.toServiceRequest());
+        return ApiResponse.ok(memberService.getMember(savedId));
     }
 
 }

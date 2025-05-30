@@ -2,6 +2,7 @@ package com.example.coupon_backend.domain.member.service;
 
 import com.example.coupon_backend.domain.member.entity.Member;
 import com.example.coupon_backend.domain.member.enums.MemberStatus;
+import com.example.coupon_backend.domain.member.exception.DuplicateMemberException;
 import com.example.coupon_backend.domain.member.exception.MemberNotFoundException;
 import com.example.coupon_backend.domain.member.repository.MemberRepository;
 import com.example.coupon_backend.domain.member.service.request.MemberCreateServiceRequest;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Transactional(readOnly = true)
 @Service
@@ -31,8 +34,17 @@ public class MemberService {
 
     @Transactional
     public Long save(MemberCreateServiceRequest request) {
-        Member member = Member.join(request.getId(), request.getName());
+        checkDuplicateMember(request.getMemberId());
+
+        Member member = Member.join(request.getMemberId(), request.getPassword(), request.getEmail(), request.getName());
         memberRepository.save(member);
         return member.getId();
+    }
+
+    private void checkDuplicateMember(String memberId) {
+        Optional<Member> findMember = memberRepository.findByMemberId(memberId);
+        findMember.ifPresent(m -> {
+            throw new DuplicateMemberException();
+        });
     }
 }

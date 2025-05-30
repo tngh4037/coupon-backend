@@ -22,11 +22,11 @@ class MemberControllerTest extends ControllerTestSupport {
     public void createMember() throws Exception {
         // given
         MemberCreateRequest requestData = MemberCreateRequest.builder()
-                .id("userId")
+                .memberId("memberId")
+                .password("1234")
                 .name("kim")
+                .email("test@email.com")
                 .build();
-
-        Mockito.when(memberService.save(Mockito.any())).thenReturn(null);
 
         // when & then
         mockMvc.perform(post("/api/members/new")
@@ -43,12 +43,11 @@ class MemberControllerTest extends ControllerTestSupport {
     public void createMemberWithoutId() throws Exception {
         // given
         MemberCreateRequest requestData = MemberCreateRequest.builder()
-              //  .id("userId")
+                //.memberId("memberId")
+                .password("1234")
                 .name("kim")
+                .email("test@email.com")
                 .build();
-
-        // stubbing
-        Mockito.when(memberService.save(Mockito.any(MemberCreateServiceRequest.class))).thenReturn(null);
 
         // when & then
         mockMvc.perform(post("/api/members/new")
@@ -59,7 +58,7 @@ class MemberControllerTest extends ControllerTestSupport {
                 .andExpect(jsonPath("$.message").value("유효하지 않은 요청입니다."))
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.code").value("C001"))
-                .andExpect(jsonPath("$.errors[0].field").value("id"))
+                .andExpect(jsonPath("$.errors[0].field").value("memberId"))
                 .andExpect(jsonPath("$.errors[0].value").value(""))
                 .andExpect(jsonPath("$.errors[0].reason").value("아이디는 필수입니다."))
         ;
@@ -70,12 +69,11 @@ class MemberControllerTest extends ControllerTestSupport {
     public void createMemberWithoutName() throws Exception {
         // given
         MemberCreateRequest requestData = MemberCreateRequest.builder()
-                .id("userId")
-              //  .name("kim")
+                .memberId("memberId")
+                .password("1234")
+               // .name("kim")
+                .email("test@email.com")
                 .build();
-
-        // stubbing
-        Mockito.when(memberService.save(Mockito.any(MemberCreateServiceRequest.class))).thenReturn(null);
 
         // when & then
         mockMvc.perform(post("/api/members/new")

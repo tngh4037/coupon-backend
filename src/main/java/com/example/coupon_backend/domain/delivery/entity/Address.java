@@ -21,4 +21,8 @@ public class Address {
         address.zipCode = zipCode;
         return address;
     }
+
+    public String getFullAddress() {
+        return String.format("%s %s %s", this.zipCode, this.city, this.street);
+    }
 }

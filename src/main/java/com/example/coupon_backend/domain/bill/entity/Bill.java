@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder(access = AccessLevel.PRIVATE) // @Builder.Default를 사용하려면 클래스 수준에 @Builder 또는 @SuperBuilder가 붙어 있어야 합니다. | 만약 상속 구조가 있다면 @SuperBuilder를 쓰셔야 할 수도 있어요. ( BaseEntity 에서도 빌더를 사용하는 경우, 둘다 @SuperBuilder 로 해야 함. )
+@Builder(access = AccessLevel.PRIVATE)
 public class Bill extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +41,7 @@ public class Bill extends BaseEntity {
     @OneToOne(mappedBy = "bill", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Delivery delivery;
 
-    @Builder.Default // @Builder 시에도 초기값 유지
+    @Builder.Default
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 

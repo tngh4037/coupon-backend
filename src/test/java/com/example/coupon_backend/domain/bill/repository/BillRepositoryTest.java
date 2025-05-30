@@ -108,7 +108,7 @@ class BillRepositoryTest extends IntegrationTestSupport {
     }
 
     private Member createMember() {
-        Member member = Member.join("userId", "kim");
+        Member member =  Member.join("userId", "1234", "test@email.com", "kim");
         memberRepository.save(member);
         return member;
     }

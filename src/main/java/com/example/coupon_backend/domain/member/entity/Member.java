@@ -17,17 +17,19 @@ public class Member extends BaseEntity {
     private Long id;
 
     private String memberId;
-
-    @Column(name = "member_name")
+    private String password;
+    private String email;
     private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "member_status")
     private MemberStatus status;
 
-    public static Member join(String memberId, String name) {
+    public static Member join(String memberId, String password, String email, String name) {
         return Member.builder()
                 .memberId(memberId)
+                .password(password)
+                .email(email)
                 .name(name)
                 .status(MemberStatus.NORMAL)
                 .build();

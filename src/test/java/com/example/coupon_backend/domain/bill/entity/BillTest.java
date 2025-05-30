@@ -20,7 +20,7 @@ class BillTest {
     void calculateTotalAmount() {
 
         // given
-        Member member = Member.join("userId", "kim");
+        Member member = Member.join("userId", "1234", "test@email.com", "kim");
         Brand brand = Brand.create("스타벅스");
         Goods americano = Goods.create("아메리카노", GoodsType.B2B, 4500, 4500, brand);
         Goods latte = Goods.create("카페라떼", GoodsType.B2B, 5000, 5000, brand);

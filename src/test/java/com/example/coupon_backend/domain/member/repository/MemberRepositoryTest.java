@@ -20,7 +20,7 @@ class MemberRepositoryTest extends IntegrationTestSupport {
     @Test
     public void save() throws Exception {
         // given
-        Member member = Member.join("userId", "kim");
+        Member member = Member.join("userId", "1234", "test@email.com", "kim");
 
         // when
         Member savedMember = memberRepository.save(member);

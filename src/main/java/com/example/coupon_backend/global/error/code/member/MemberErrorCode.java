@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum MemberErrorCode implements ErrorCode {
-    MEMBER_NOT_FOUND("M001", "회원 정보를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST);
+    MEMBER_NOT_FOUND("M001", "회원 정보를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST),
+    DUPLICATE_MEMBER("M002", "이미 존재하는 회원입니다.", HttpStatus.BAD_REQUEST)
+    ;
 
     private final String code;
     private final String message;

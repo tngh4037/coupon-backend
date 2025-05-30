@@ -21,10 +21,11 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true # jpql logging
+        default_batch_fetch_size: 100
     database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
 
 logging:
   level:
     org.hibernate.SQL: debug # sql logging
-#    org.hibernate.orm.jdbc.bind: trace # parameter logging
+#    org.hibernate.orm.jdbc.bind: trace # parameter binding logging
