@@ -16,6 +16,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,6 +69,18 @@ public class GlobalExceptionHandler {
         ErrorResponse response = ErrorResponse.of(CommonErrorCode.INVALID_TYPE_VALUE, List.of(error));
 
         return new ResponseEntity<>(response, CommonErrorCode.INVALID_TYPE_VALUE.getHttpStatus());
+    }
+
+    /**
+     * NoResourceFoundException
+     * - spring boot version 3.2 이후 부터, 존재하지 않는 리소스 요청시 sendError(404) 처리하는 것이 아닌, NoResourceFoundException 예외가 던져진다.
+     * - 별도로 설정이 없으면 이 예외는 스프링 내부 예외 처리 매커니즘에 의해 핸들링되어, 404 로 내려지는 것 같은데, 만약 개발자가 예외처리 핸들러에서 Exception 으로 잡아버리면, 여기에 우선 적용되어버려, 결과적으로 500 오류가 반환된다.
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoResourceFoundException(NoResourceFoundException e) {
+        log.info("handleHttpRequestMethodNotSupportedException", e);
+        final ErrorResponse response = ErrorResponse.of(CommonErrorCode.NOT_FOUND);
+        return new ResponseEntity<>(response, CommonErrorCode.NOT_FOUND.getHttpStatus());
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.example.coupon_backend.domain.member.entity;
 
+import com.example.coupon_backend.domain.member.enums.MemberRole;
 import com.example.coupon_backend.domain.member.enums.MemberStatus;
 import com.example.coupon_backend.global.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -9,7 +10,7 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder(access = AccessLevel.PRIVATE)
+@Builder
 public class Member extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,10 @@ public class Member extends BaseEntity {
     @Column(name = "member_status")
     private MemberStatus status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MemberRole role;
+
     public static Member join(String memberId, String password, String email, String name) {
         return Member.builder()
                 .memberId(memberId)
@@ -32,6 +37,7 @@ public class Member extends BaseEntity {
                 .email(email)
                 .name(name)
                 .status(MemberStatus.NORMAL)
+                .role(MemberRole.NORMAL)
                 .build();
     }
 }

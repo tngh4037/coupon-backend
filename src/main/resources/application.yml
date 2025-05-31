@@ -1,6 +1,11 @@
 spring:
   profiles:
     default: local
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
 
 ---
 
