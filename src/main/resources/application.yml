@@ -29,3 +29,4 @@ logging:
   level:
     org.hibernate.SQL: debug # sql logging
 #    org.hibernate.orm.jdbc.bind: trace # parameter binding logging
+    com.example.coupon_backend: debug

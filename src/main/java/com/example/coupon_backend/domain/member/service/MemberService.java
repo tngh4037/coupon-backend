@@ -36,7 +36,7 @@ public class MemberService {
     public Long save(MemberCreateServiceRequest request) {
         checkDuplicateMember(request.getMemberId());
 
-        Member member = Member.join(request.getMemberId(), request.getPassword(), request.getEmail(), request.getName());
+        Member member = request.toEntity();
         memberRepository.save(member);
         return member.getId();
     }
