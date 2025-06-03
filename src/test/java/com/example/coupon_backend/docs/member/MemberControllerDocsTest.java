@@ -37,7 +37,7 @@ public class MemberControllerDocsTest extends RestDocsSupport {
                 .email("test@email.com")
                 .build();
 
-        // stubbing
+        // stubbing ( given 절에서 정의한 methodCall 이, 실제 memberService.save(..) 를 대체해서 쏙 들어가서 수행하는 것.
         LocalDateTime now = LocalDateTime.now();
         BDDMockito.given(memberService.save(Mockito.any(MemberCreateServiceRequest.class))).willReturn(1L);
         // Mockito.when(memberService.save(Mockito.any(MemberCreateServiceRequest.class))).thenReturn(1L);

@@ -17,6 +17,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class MemberControllerTest extends ControllerTestSupport {
 
+    // setupBefore=TEST_METHOD : 테스트 메서드 실행 전에 인증 정보를 설정. 이 시점은 @BeforeEach 보다도 이전에 수행 ( 모든 테스트 관련 메서드(@BeforeEach 포함)보다 먼저 )
+    // setupBefore=TEST_EXECUTION : 테스트 메서드가 실행되기 직전, 즉 @BeforeEach 이후에 인증 정보를 설정 ( @BeforeEach 이후, 테스트 메서드 실행 직전에 동작 )
+    // @WithUserDetails(value = "ssar", setupBefore = TestExecutionEvent.TEST_EXECUTION) // username 을 "ssar" 로 해서, UserDetailsService.loadUserByUsername()을 호출한다. 그래서 결론적으로 DB에서 username=ssar 을 조회해서 SecurityContextHolder에 담아주는 애노테이션이다. || 참고 ) @WithMockUser 도 있으니 참고
     @DisplayName("회원가입시 회원을 등록한다.")
     @Test
     public void createMember() throws Exception {

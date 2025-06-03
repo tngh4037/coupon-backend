@@ -17,6 +17,7 @@ public class Member extends BaseEntity {
     @Column(name = "member_no")
     private Long id;
 
+    // @Column(unique = true, nullable = false, length = 16) // 참고) length = 16: VARCHAR(16) | 16은 byte가 아님. ( 16바이트가 아니라, 최대 16개의 문자를 허용하겠다는 의미 )
     private String memberId;
     private String password;
     private String email;

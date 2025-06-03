@@ -19,7 +19,7 @@ public class Goods extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "brand_no")
+    @JoinColumn(name = "brand_no") // 참고) @JoinColumn(name = "brand_no", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT)) // (DDL에서) 외래키 제약조건 생성하지 X
     private Brand brand;
 
     private String goodsName;

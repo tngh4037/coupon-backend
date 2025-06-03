@@ -1,4 +1,4 @@
-package com.example.coupon_backend.domain.member.api.request;
+package com.example.coupon_backend.global.config.security.login;
 
 import com.example.coupon_backend.domain.member.entity.Member;
 import lombok.Getter;

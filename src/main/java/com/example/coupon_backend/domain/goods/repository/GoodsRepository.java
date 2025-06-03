@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface GoodsRepository extends JpaRepository<Goods, Long> {
 
+    // JPQL: select g from Goods g where g.brand.id in :brandNos
+    // SQL: select * from goods where brand_no in (?, ?, ...)
     List<Goods> findByBrandIdIn(List<Long> brandNos);
 
     List<Goods> findByBrandIdInAndDisplayYn(List<Long> brandIds, String displayYn);

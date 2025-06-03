@@ -1,7 +1,7 @@
 package com.example.coupon_backend.global.config.security.jwt;
 
-import com.example.coupon_backend.domain.member.api.request.MemberLoginRequest;
-import com.example.coupon_backend.domain.member.api.request.MemberLoginResponse;
+import com.example.coupon_backend.global.config.security.login.MemberLoginRequest;
+import com.example.coupon_backend.global.config.security.login.MemberLoginResponse;
 import com.example.coupon_backend.global.api.ApiResponse;
 import com.example.coupon_backend.global.config.security.service.CustomUserDetails;
 import com.example.coupon_backend.global.error.ErrorResponse;

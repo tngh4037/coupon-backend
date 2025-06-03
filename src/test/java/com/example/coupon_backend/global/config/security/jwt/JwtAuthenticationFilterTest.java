@@ -1,7 +1,7 @@
 package com.example.coupon_backend.global.config.security.jwt;
 
 import com.example.coupon_backend.IntegrationTestSupport;
-import com.example.coupon_backend.domain.member.api.request.MemberLoginRequest;
+import com.example.coupon_backend.global.config.security.login.MemberLoginRequest;
 import com.example.coupon_backend.domain.member.entity.Member;
 import com.example.coupon_backend.domain.member.repository.MemberRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;

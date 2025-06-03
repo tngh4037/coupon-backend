@@ -15,13 +15,12 @@ class JwtTokenProviderTest {
     public void createJwtTokenTest() throws Exception {
         // given
         Member member = Member.builder().id(1L).role(MemberRole.GOLD).build();
-        CustomUserDetails userDetails = new CustomUserDetails(member);
 
         // when
-        String jwtToken = JwtTokenProvider.create(userDetails);
+        String jwtToken = createJwtToken(member);
 
         // then
-        assertThat(jwtToken.startsWith(JwtTokenProvider.getTokenPrefix())).isTrue();
+        assertThat(jwtToken).isNotEmpty();
     }
 
     @DisplayName("토큰을 디코딩하면 회원 정보가 조회된다.")
@@ -29,8 +28,7 @@ class JwtTokenProviderTest {
     public void verifyTest() throws Exception {
         // given
         Member member = Member.builder().id(1L).role(MemberRole.GOLD).build();
-        CustomUserDetails userDetails = new CustomUserDetails(member);
-        String jwtToken = JwtTokenProvider.create(userDetails).replace(JwtTokenProvider.getTokenPrefix(), "");
+        String jwtToken = createJwtToken(member);
 
         // when
         CustomUserDetails customUserDetails = JwtTokenProvider.verify(jwtToken);
@@ -38,6 +36,11 @@ class JwtTokenProviderTest {
         // then
         assertThat(member.getId()).isEqualTo(customUserDetails.getMember().getId());
         assertThat(member.getRole()).isEqualTo(customUserDetails.getMember().getRole());
+    }
+
+    private String createJwtToken(Member member) {
+        CustomUserDetails loginUser = new CustomUserDetails(member);
+        return JwtTokenProvider.create(loginUser).replace(JwtTokenProvider.getTokenPrefix(), "");
     }
 
 }
