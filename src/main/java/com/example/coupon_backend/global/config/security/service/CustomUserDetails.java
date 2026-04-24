@@ -11,7 +11,7 @@ import java.util.Collection;
 
 @Getter
 @RequiredArgsConstructor
-public class CustomUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails { // 컨트롤러 등에서 사용자 정보 조회 시 보안 문제점을 해결하기 위해 사용 ( 이거 안하면 회원 정보 조회시, 회원번호 등을 api 파라미터로 받아야하는데, 그러면 다른 사용자의 회원번호로 요청해서 볼 위험이 있음. 그래서 SecurityContentHolder에 저장된 내 정보 불러서 오기위함. (MemberController 참고))
 
     private final Member member;
 

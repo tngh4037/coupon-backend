@@ -32,7 +32,7 @@ class MemberControllerTest extends ControllerTestSupport {
                 .build();
 
         // when & then
-        mockMvc.perform(post("/api/members/new")
+        mockMvc.perform(post("/api/members/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestData)))
                 .andDo(print())
@@ -53,7 +53,7 @@ class MemberControllerTest extends ControllerTestSupport {
                 .build();
 
         // when & then
-        mockMvc.perform(post("/api/members/new")
+        mockMvc.perform(post("/api/members/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestData)))
                 .andDo(print())
@@ -79,7 +79,7 @@ class MemberControllerTest extends ControllerTestSupport {
                 .build();
 
         // when & then
-        mockMvc.perform(post("/api/members/new")
+        mockMvc.perform(post("/api/members/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestData)))
                 .andDo(print())
@@ -97,7 +97,7 @@ class MemberControllerTest extends ControllerTestSupport {
     @Test
     public void member() throws Exception {
         // given & when & then
-        mockMvc.perform(get("/api/members/1"))
+        mockMvc.perform(get("/api/members/1")) // TODO :: info 로 수정 (@PathVariable X)
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))

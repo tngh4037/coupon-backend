@@ -51,7 +51,7 @@ public class MemberControllerDocsTest extends RestDocsSupport {
                 .build());
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/members/new")
+                MockMvcRequestBuilders.post("/api/members/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestData)))
                 .andExpect(MockMvcResultMatchers.status().isOk())

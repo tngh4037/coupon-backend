@@ -26,6 +26,9 @@ public class JwtTokenProvider {
         return TOKEN_PREFIX;
     }
 
+    /**
+     * Token 정보 추출
+     */
     public static String create(CustomUserDetails userDetails) {
         String jwtToken = JWT.create()
                 .withSubject(SUBJECT)
@@ -36,6 +39,9 @@ public class JwtTokenProvider {
         return TOKEN_PREFIX + jwtToken;
     }
 
+    /**
+     * Token 검증
+     */
     public static CustomUserDetails verify(String token) {
         DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(SECRET))
                 .withSubject(SUBJECT)
